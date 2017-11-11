@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/revel/revel"
-	"github.com/shiro16/golang-bbs/app/utils"
 )
 
 // 埋め込みによって revel.Controller をラップした ApiV1Controller を定義する
@@ -25,7 +25,7 @@ type Response struct {
 
 // 引数として渡されて interface にリクエストの Json の値を格納する
 func (c *ApiV1Controller) BindParams(s interface{}) error {
-	return utils.JsonDecode(c.Params.JSON, s)
+	return json.Unmarshal(c.Params.JSON, s)
 }
 
 // Bad Request Error を返すやつ
