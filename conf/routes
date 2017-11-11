@@ -8,7 +8,10 @@ module:testrunner
 
 
 GET     /                                       App.Index
-GET     /App/Hello                              App.Hello
+GET     /api/v1/comments                        apiV1Comments.Index
+GET     /api/v1/comments/:id                    apiV1Comments.Show
+POST    /api/v1/comments/                       apiV1Comments.Create
+DELTE   /api/v1/comments/:id                    apiV1Comments.Delete
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
