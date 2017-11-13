@@ -8,6 +8,7 @@ module:testrunner
 
 
 GET     /                                       App.Index
+GET     /App/PostMessage                        App.PostMessage
 GET     /api/v1/comments                        apiV1Comments.Index
 GET     /api/v1/comments/:id                    apiV1Comments.Show
 POST    /api/v1/comments/                       apiV1Comments.Create

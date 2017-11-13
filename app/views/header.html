@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>{{.title}}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
     <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
@@ -15,5 +15,28 @@
     {{range .moreScripts}}
       <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
     {{end}}
+    <style>
+      table {
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+      }
+      td {
+          width: 300px;
+          padding: 10px;
+          vertical-align: top;
+          border: 1px solid #ccc;
+      }
+      td.first_clm {
+          width: 100px;
+      }
+      td.post_td{
+          border-style: none;
+      }
+      th {
+          background-color: #dff0d8;
+          border: 1px solid #ccc;
+      }
+    </style>
   </head>
   <body>

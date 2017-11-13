@@ -12,15 +12,42 @@
 
 <div class="container">
   <div class="row">
+
     <div class="span6">
       {{template "flash.html" .}}
-      <form action="/App/Hello" method="GET">
-	{{with $field := field "myName" .}}
-        	<input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-	{{end}}
-        <input type="submit" value="Say hello!" />
+      <form action="/App/PostMessage" method="GET">
+        <table>
+      	{{with $field := field "myName" .}}
+          <tr>
+            <td align="right" class="first_clm post_td">Name:</td>
+            <td class="post_td"><input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/></td>
+          </tr>
+	      {{end}}
+      	{{with $field := field "body" .}}
+          <tr>
+            <td align="right" class="first_clm post_td">Body:</td>
+            <td class="post_td"><textarea name="{{$field.Name}}" value="{{$field.Flash}}"></textarea></td>
+            </td>
+          </tr>
+    	  {{end}}
+        </table>
+        <input type="submit" value="投稿" />
       </form>
     </div>
+
+    <h3>これまでの投稿</h3>
+    <div class="span6">
+      <table>
+      <th>ユーザー</th><th>投稿</th><th>投稿日時</th>
+      {{range .comments}}
+        <tr>
+          <td align="right" class="first_clm">{{.Nickname}}: </td>
+          <td><textarea>{{.Body}}</textarea></td>
+          <td>{{.CreatedAt}}</td>
+        </tr>
+      {{end}}
+    </div>
+
   </div>
 </div>
 

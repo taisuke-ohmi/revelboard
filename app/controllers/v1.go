@@ -24,26 +24,26 @@ type Response struct {
 }
 
 // 引数として渡されて interface にリクエストの Json の値を格納する
-func (c *ApiV1Controller) BindParams(s interface{}) error {
+func (c ApiV1Controller) BindParams(s interface{}) error {
 	return json.Unmarshal(c.Params.JSON, s)
 }
 
 // Bad Request Error を返すやつ
-func (c *ApiV1Controller) HandleBadRequestError(s string) revel.Result {
+func (c ApiV1Controller) HandleBadRequestError(s string) revel.Result {
 	c.Response.Status = http.StatusBadRequest
 	r := ErrorResponse{c.Response.Status, s}
 	return c.RenderJSON(r)
 }
 
 // Not Found Error を返すやつ
-func (c *ApiV1Controller) HandleNotFoundError(s string) revel.Result {
+func (c ApiV1Controller) HandleNotFoundError(s string) revel.Result {
 	c.Response.Status = http.StatusNotFound
 	r := ErrorResponse{c.Response.Status, s}
 	return c.RenderJSON(r)
 }
 
 // Internal Server Error を返すやつ
-func (c *ApiV1Controller) HandleInternalServerError(s string) revel.Result {
+func (c ApiV1Controller) HandleInternalServerError(s string) revel.Result {
 	c.Response.Status = http.StatusInternalServerError
 	r := ErrorResponse{c.Response.Status, s}
 	return c.RenderJSON(r)
