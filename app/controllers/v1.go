@@ -7,7 +7,7 @@ import (
 	"github.com/revel/revel"
 )
 
-// 埋め込みによって revel.Controller をラップした ApiV1Controller を定義する
+// revel.Controller をラップした ApiV1Controller を定義する
 type ApiV1Controller struct {
 	*revel.Controller
 }
