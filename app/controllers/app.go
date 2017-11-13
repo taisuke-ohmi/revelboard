@@ -17,7 +17,7 @@ func (c App) Index() revel.Result {
 		return c.HandleInternalServerError("Record Find Failure")
 	}
 
-	g := "Hello World"
+	g := "Aloha World"
 	return c.Render(g, comments)
 }
 
