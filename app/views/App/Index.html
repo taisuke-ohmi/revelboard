@@ -1,54 +1,74 @@
-{{set . "title" "Home"}}
+{{set . "title" "Board"}}
+{{append . "moreScripts" "js/revel_board.js?20171202"}}
 {{template "header.html" .}}
 
-<header class="jumbotron" style="background-color:#A9F16C">
-  <div class="container">
-    <div class="row">
-      <h1>{{.g}}</h1>
-      <p></p>
+<div class="ui container">
+  <header class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+      <h1 class="ui inverted header">{{.service}}</h1>
     </div>
-  </div>
-</header>
+  </header>
+  
+  <div style="margin-top: 2em;"></div>
+  <div class="ui centered grid">
 
-<div class="container">
-  <div class="row">
-
-    <div class="span6">
-      {{template "flash.html" .}}
-      <form action="/App/PostMessage" method="GET">
-        <table>
+    <div class="ui secondary vertical menu three wide column">
+      <a class="active item" href="http://localhost:9000">投稿</a>
+      <a class="item" href="http://localhost:9000/trashed">ごみ箱</a>
+    </div>
+  
+    <div class="nine wide column">
+      <div class="ui comments">
+        <h2 class="ui header">これまでの投稿</h2>
+        {{range .comments}}
+        <div class="comment">
+          <div class="content">
+            <a class="author">{{.Nickname}}</a>
+            <div class="metadata">
+              <span class="date">{{.CreatedAt}}</span>
+            </div>
+            <div class="text">
+              {{.Body}}
+            </div>
+          </div>
+        </div>
+      {{end}}
+      </div>
+    </div>
+  
+    <div class="four wide column">
+      <h2 class="ui header">新規投稿</h2>
+      <div class="ui error message" style="display:none;">
+        <i class="close icon"></i>
+        <div class="header">
+          There were some errors with your submission
+        </div>
+        <ul class="list">
+        </ul>
+      </div>
+      <form class="ui form revel-form">
+        <div class="field">
       	{{with $field := field "myName" .}}
-          <tr>
-            <td align="right" class="first_clm post_td">Name:</td>
-            <td class="post_td"><input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/></td>
-          </tr>
-	      {{end}}
+          <label>名前</label>
+          <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}" />
+        {{end}}
+        </div>
+  
+        <div class="field">
       	{{with $field := field "body" .}}
-          <tr>
-            <td align="right" class="first_clm post_td">Body:</td>
-            <td class="post_td"><textarea name="{{$field.Name}}" value="{{$field.Flash}}"></textarea></td>
-            </td>
-          </tr>
+          <label>内容</label>
+          <textarea name="{{$field.Name}}" value="{{$field.Flash}}" rows=2></textarea></td>
     	  {{end}}
-        </table>
-        <input type="submit" value="投稿" />
+        </div>
+  
+        <div class="field">
+          <button class="ui teal button" type="submit">Submit</button>
+        </div>
       </form>
     </div>
 
-    <h3>これまでの投稿</h3>
-    <div class="span6">
-      <table>
-      <th>ユーザー</th><th>投稿</th><th>投稿日時</th>
-      {{range .comments}}
-        <tr>
-          <td align="right" class="first_clm">{{.Nickname}}: </td>
-          <td><textarea>{{.Body}}</textarea></td>
-          <td>{{.CreatedAt}}</td>
-        </tr>
-      {{end}}
-    </div>
-
   </div>
+
 </div>
 
 {{template "footer.html" .}}

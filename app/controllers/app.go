@@ -10,17 +10,19 @@ type App struct {
 	ApiV1Controller
 }
 
+// トップページ
 func (c App) Index() revel.Result {
 	comments := []models.Comment{}
 
-	if err := DB.Order("created_at").Find(&comments).Error; err != nil {
+	if err := DB.Order("created_at DESC").Find(&comments).Error; err != nil {
 		return c.HandleInternalServerError("Record Find Failure")
 	}
 
-	g := "Aloha World"
-	return c.Render(g, comments)
+	service := "Revel Board"
+	return c.Render(service, comments)
 }
 
+// 投稿
 func (c App) PostMessage(myName string, body string) revel.Result {
 	// validation check
 	c.Validation.Required(myName).Message("Your name is required")
@@ -28,9 +30,7 @@ func (c App) PostMessage(myName string, body string) revel.Result {
 	c.Validation.Required(body).Message("Body is required")
 
 	if c.Validation.HasErrors() {
-		c.Validation.Keep()
-		c.FlashParams()
-		return c.Redirect(App.Index)
+		return c.RenderJSON(c.Validation.Errors)
 	}
 
 	// DB insert
@@ -40,5 +40,5 @@ func (c App) PostMessage(myName string, body string) revel.Result {
 		return c.HandleInternalServerError("Record Create Failure")
 	}
 
-	return c.Redirect(App.Index)
+	return c.RenderJSON(nil)
 }
